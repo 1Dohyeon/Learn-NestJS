@@ -2,20 +2,39 @@
 Object.defineProperty(exports, "__esModule", { value: true });
 var express = require("express");
 var cats_route_1 = require("./cats/cats.route");
-var app = express();
-var port = 8000;
-app.use(function (req, res, next) {
-    console.log(req.rawHeaders[1]);
-    console.log('this is logging middle ware');
-    next();
-});
-app.use(express.json());
-app.use(cats_route_1.default);
-app.use(function (req, res, next) {
-    console.log('this is error middle ware');
-    res.send({ error: '404 not found error' });
-});
-app.listen(port, function () {
-    console.log("Example app listening on port http://localhost:" + port);
-});
+var Server = (function () {
+    function Server() {
+        var app = express();
+        this.app = app;
+    }
+    Server.prototype.setRoute = function () {
+        this.app.use(cats_route_1.default);
+    };
+    Server.prototype.setMiddleware = function () {
+        this.app.use(function (req, res, next) {
+            console.log(req.rawHeaders[1]);
+            console.log('this is logging middle ware');
+            next();
+        });
+        this.app.use(express.json());
+        this.setRoute();
+        this.app.use(function (req, res, next) {
+            console.log('this is error middle ware');
+            res.send({ error: '404 not found error' });
+        });
+    };
+    Server.prototype.listen = function () {
+        this.setMiddleware();
+        var port = 8000;
+        this.app.listen(port, function () {
+            console.log("Example app listening on port http://localhost:" + port);
+        });
+    };
+    return Server;
+}());
+function init() {
+    var server = new Server();
+    server.listen();
+}
+init();
 //# sourceMappingURL=app.js.map
