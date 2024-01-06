@@ -23,5 +23,5 @@
 # End of https://www.toptal.com/developers/gitignore/api/visualstudiocode
 
 /node_modules
-02 express/letsStart/node_modules
-02 express/letsStart/dist/tsconfig.tsbuildinfo
+02 express/01_letsStart/node_modules
+02 express/01_letsStart/dist/tsconfig.tsbuildinfo

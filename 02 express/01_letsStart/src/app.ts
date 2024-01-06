@@ -24,7 +24,40 @@ app.listen(port, () => {
   console.log(`Example app listening on port http://localhost:${port}`);
 });
 
+// middleWare
+app.use((req, res, next) => {
+  console.log(req.rawHeaders[1]);
+  console.log('this is logging middle ware');
+  next();
+});
+
+// router
 app.get('/', (req: express.Request, res: express.Response) => {
-  console.log(req);
+  console.log(req.rawHeaders[1]);
   res.send({ Cat });
+});
+
+// middleWare
+app.use('/cats', (req, res, next) => {
+  console.log(req.rawHeaders[1]);
+  console.log('this is cats middle ware');
+  next();
+});
+
+// router
+app.get('/cats/blue', (req, res) => {
+  console.log(req.rawHeaders[1]);
+  res.send({ blue: Cat[0] });
+});
+
+// router
+app.get('/cats/som', (req, res) => {
+  console.log(req.rawHeaders[1]);
+  res.send({ som: Cat[1] });
+});
+
+// middleWare
+app.use((req, res, next) => {
+  console.log('this is error middle ware');
+  res.send({error: '404 not found error'});
 });
