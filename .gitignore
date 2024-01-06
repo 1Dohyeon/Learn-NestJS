@@ -25,3 +25,5 @@
 /node_modules
 02 express/01_letsStart/node_modules
 02 express/01_letsStart/dist/tsconfig.tsbuildinfo
+02 express/02_letsStart/node_modules
+02 express/02_letsStart/dist/tsconfig.tsbuildinfo
