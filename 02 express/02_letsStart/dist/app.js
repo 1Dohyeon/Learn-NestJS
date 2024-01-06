@@ -12,22 +12,62 @@ app.use(function (req, res, next) {
     console.log('this is logging middle ware');
     next();
 });
-app.get('/', function (req, res) {
-    console.log(req.rawHeaders[1]);
-    res.send({ Cat: app_model_1.Cat });
+app.get('/cats', function (req, res) {
+    try {
+        var cats = app_model_1.Cat;
+        res.status(200).send({
+            success: true,
+            data: {
+                cats: cats,
+            },
+        });
+    }
+    catch (error) {
+        res.status(400).send({
+            success: false,
+            error: error.message,
+        });
+    }
 });
-app.use('/cats', function (req, res, next) {
-    console.log(req.rawHeaders[1]);
-    console.log('this is cats middle ware');
-    next();
+app.get('/cats/:id', function (req, res) {
+    try {
+        var params_1 = req.params;
+        console.log(params_1);
+        var cat = app_model_1.Cat.find(function (cat) {
+            return cat.id === params_1.id;
+        });
+        res.status(200).send({
+            success: true,
+            data: {
+                cat: cat,
+            },
+        });
+    }
+    catch (error) {
+        res.status(400).send({
+            success: false,
+            error: error.message,
+        });
+    }
 });
-app.get('/cats/blue', function (req, res) {
-    console.log(req.rawHeaders[1]);
-    res.send({ blue: app_model_1.Cat[0] });
-});
-app.get('/cats/som', function (req, res) {
-    console.log(req.rawHeaders[1]);
-    res.send({ som: app_model_1.Cat[1] });
+app.use(express.json());
+app.post('/cats', function (req, res) {
+    try {
+        var cats = app_model_1.Cat;
+        var data = req.body;
+        console.log(data);
+        cats.push(data);
+        res.status(200).send({
+            success: true,
+            data: { cats: cats },
+        });
+    }
+    catch (error) {
+        res.status(400).send({
+            success: false,
+            error: error.message,
+        });
+    }
 });
 app.use(function (req, res, next) {
     console.log('this is error middle ware');
