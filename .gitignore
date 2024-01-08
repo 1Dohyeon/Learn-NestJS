@@ -30,3 +30,39 @@
 
 
 02 express/02_letsStart/src/mongodb.txt
+
+# compiled output
+03_practice-nest/dist
+03_practice-nest/node_modules
+
+# Logs
+03_practice-nest/logs
+03_practice-nest/*.log
+03_practice-nest/npm-debug.log*
+03_practice-nest/pnpm-debug.log*
+03_practice-nest/yarn-debug.log*
+03_practice-nest/yarn-error.log*
+03_practice-nest/lerna-debug.log*
+
+# OS
+03_practice-nest/.DS_Store
+
+# Tests
+03_practice-nest/coverage
+03_practice-nest/.nyc_output
+
+# IDEs and editors
+03_practice-nest/.idea
+03_practice-nest/.project
+03_practice-nest/.classpath
+03_practice-nest/.c9/
+03_practice-nest/*.launch
+03_practice-nest/.settings/
+03_practice-nest/*.sublime-workspace
+
+# IDE - VSCode
+03_practice-nest/.vscode/*
+03_practice-nest/!.vscode/settings.json
+03_practice-nest/!.vscode/tasks.json
+03_practice-nest/!.vscode/launch.json
+03_practice-nest/!.vscode/extensions.json
