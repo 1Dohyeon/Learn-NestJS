@@ -1,16 +1,4 @@
-import {
-  Controller,
-  Delete,
-  Get,
-  Param,
-  ParseIntPipe,
-  Patch,
-  Post,
-  Put,
-  UseFilters,
-  UseInterceptors,
-} from '@nestjs/common';
-import { HttpExceptionFilter } from 'src/common/exception/http-exception.filter';
+import { Body, Controller, Get, Post, UseInterceptors } from '@nestjs/common';
 import { SuccessInterceptor } from 'src/common/interceptors/success.interceptor';
 import { CatsService } from './cats.service';
 
@@ -19,40 +7,29 @@ import { CatsService } from './cats.service';
 export class CatsController {
   constructor(private readonly catsService: CatsService) {}
 
-  // cats/
   @Get()
-  @UseFilters(HttpExceptionFilter)
-  getAllCat() {
-    // throw new HttpException('api broken', 401);
-    console.log('hello controller');
-    return { cats: 'get all cat api' };
-  }
-
-  // cats/:id
-  @Get(':id')
-  getOneCat(@Param('id', ParseIntPipe) param: number) {
-    console.log(param);
-    console.log(typeof param); // pipe로 string -> int 로 변환, number로 변환이 안되는 문자는 Validation 에러 메시지를 띄움
-    return 'one cat';
+  getCurrentCat() {
+    return 'current cat';
   }
 
   @Post()
-  createCat() {
-    return 'create cat';
+  async signUp(@Body() body) {
+    console.log(body);
+    return 'signup';
   }
 
-  @Put(':id')
-  updateCat() {
-    return 'update cat';
+  @Post('login')
+  logIn() {
+    return 'login';
   }
 
-  @Patch(':id')
-  updatePartialCat() {
-    return 'update';
+  @Post('logout')
+  logOut() {
+    return 'logout';
   }
 
-  @Delete(':id')
-  deleteCat() {
-    return 'delete cat';
+  @Post('upload/cats')
+  uploadCatImg() {
+    return 'uploadImg';
   }
 }
