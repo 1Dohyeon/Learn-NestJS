@@ -6,7 +6,7 @@ import { CatsService } from './cats.service';
 
 @Module({
   controllers: [CatsController],
-  providers: [CatsService], // providers만 있다면 모듈화 되어 외부에서 사용 못함. 아래처럼 export 해줘야함.
+  providers: [CatsService], // providers만 있다면 캡슐화 되어 외부에서 사용 못함. 아래처럼 export 해줘야함.
   exports: [CatsService],
 })
 export class CatsModule {}
