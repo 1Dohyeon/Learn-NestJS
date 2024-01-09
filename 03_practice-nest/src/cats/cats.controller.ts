@@ -10,7 +10,7 @@ import {
   Put,
   UseFilters,
 } from '@nestjs/common';
-import { HttpExceptionFilter } from 'src/http-exception.filter';
+import { HttpExceptionFilter } from 'src/common/exception/http-exception.filter';
 import { CatsService } from './cats.service';
 
 @Controller('cats')
