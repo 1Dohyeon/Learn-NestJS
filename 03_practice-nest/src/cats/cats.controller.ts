@@ -3,6 +3,8 @@ import {
   Delete,
   Get,
   HttpException,
+  Param,
+  ParseIntPipe,
   Patch,
   Post,
   Put,
@@ -25,7 +27,9 @@ export class CatsController {
 
   // cats/:id
   @Get(':id')
-  getOneCat() {
+  getOneCat(@Param('id', ParseIntPipe) param: number) {
+    console.log(param);
+    console.log(typeof param); // pipe로 string -> int 로 변환, number로 변환이 안되는 문자는 Validation 에러 메시지를 띄움
     return 'one cat';
   }
 
