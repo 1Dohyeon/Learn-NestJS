@@ -4,11 +4,14 @@ import { MongooseModule } from '@nestjs/mongoose';
 import mongoose from 'mongoose';
 import { AppController } from './app.controller';
 import { AppService } from './app.service';
+import { CatsModule } from './cats/cats.module';
 import { LoggerMiddleware } from './common/middlewares/logger.middleware';
 
 @Module({
   imports: [
-    ConfigModule.forRoot(),
+    ConfigModule.forRoot({
+      isGlobal: true,
+    }),
     MongooseModule.forRoot(process.env.MONGODB_URI, {
       // 6.0 이후 버전부터는 설정 안해도 됨
       // useNewUrlParser: true,
@@ -16,6 +19,7 @@ import { LoggerMiddleware } from './common/middlewares/logger.middleware';
       // useCreateIndex: true,
       // useFindAndModify: false,
     }),
+    CatsModule,
   ],
   controllers: [AppController],
   providers: [AppService],
