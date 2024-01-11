@@ -8,6 +8,7 @@ import { CatRequestDto } from './dto/cats.request.dto';
 @Injectable()
 export class CatsService {
   constructor(@InjectModel(Cat.name) private readonly catModel: Model<Cat>) {}
+
   async signUp(body: CatRequestDto) {
     const { email, name, password } = body;
     const isCatExist = await this.catModel.exists({ email });
