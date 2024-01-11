@@ -30,11 +30,20 @@ export class Cat extends Document {
   @IsNotEmpty()
   password: string;
 
-  @Prop({
-    required: true,
-  })
+  @Prop()
   @IsString()
   imgUrl: string;
+
+  readonly readOnlyData: { id: string; email: string; name: string };
 }
 
 export const CatSchema = SchemaFactory.createForClass(Cat);
+
+// 필요한 데이터만 return할 수 있게 함.
+CatSchema.virtual('readOnlyData').get(function (this: Cat) {
+  return {
+    id: this.id,
+    email: this.email,
+    name: this.name,
+  };
+});
