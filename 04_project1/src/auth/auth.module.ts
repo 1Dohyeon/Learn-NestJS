@@ -1,9 +1,23 @@
-import { Module } from '@nestjs/common';
+import { Module, forwardRef } from '@nestjs/common';
+import { JwtModule } from '@nestjs/jwt';
+import { PassportModule } from '@nestjs/passport';
+import { CatsModule } from 'src/cats/cats.module';
 import { AuthService } from './auth.service';
-import { AuthController } from './auth.controller';
+import { JwtStrategy } from './jwt/jwt.strategy';
 
 @Module({
-  providers: [AuthService],
-  controllers: [AuthController]
+  imports: [
+    PassportModule.register({ defaultStrategy: 'jwt', session: false }),
+
+    // JWT를 만들어줌
+    JwtModule.register({
+      secret: 'secret', // env로 교체 예정
+      signOptions: { expiresIn: '1y' },
+    }),
+
+    forwardRef(() => CatsModule),
+  ],
+  providers: [AuthService, JwtStrategy],
+  exports: [AuthService],
 })
 export class AuthModule {}
