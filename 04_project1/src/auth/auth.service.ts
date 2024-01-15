@@ -11,6 +11,7 @@ export class AuthService {
     private jwtService: JwtService,
   ) {}
 
+  // 토큰을 클라이언트에 저장
   async jwtLogIn(data: LoginRequestDto) {
     const { email, password } = data;
 

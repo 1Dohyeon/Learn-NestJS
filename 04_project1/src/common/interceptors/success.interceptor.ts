@@ -42,6 +42,10 @@ import { map } from 'rxjs/operators';
 @Injectable()
 export class SuccessInterceptor implements NestInterceptor {
   intercept(context: ExecutionContext, next: CallHandler): Observable<any> {
+    // controller 이전
+    console.log('before...');
+
+    // controller 이후
     return next.handle().pipe(
       map((data) => ({
         success: true,
