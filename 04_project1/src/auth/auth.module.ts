@@ -11,7 +11,7 @@ import { JwtStrategy } from './jwt/jwt.strategy';
 
     // JWT를 만들어줌
     JwtModule.register({
-      secret: 'secret', // env로 교체 예정
+      secret: process.env.JWT_SECRET,
       signOptions: { expiresIn: '1y' },
     }),
 
