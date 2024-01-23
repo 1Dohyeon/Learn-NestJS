@@ -30,10 +30,11 @@ async function bootstrap() {
   const document: OpenAPIObject = SwaggerModule.createDocument(app, config);
   SwaggerModule.setup('docs', app, document);
 
-  // cors
+  // CORS
   app.enableCors({
-    origin: true, // 배포할 때는 특정 url
+    origin: 'http://localhost:3000', // 배포할 때는 특정 url로 수정
     credentials: true,
+    methods: 'GET,HEAD,PUT,PATCH,POST,DELETE,OPTIONS',
   });
 
   // port
