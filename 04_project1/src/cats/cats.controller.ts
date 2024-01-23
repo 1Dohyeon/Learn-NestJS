@@ -3,6 +3,7 @@ import {
   Controller,
   Get,
   Post,
+  UploadedFiles,
   UseFilters,
   UseGuards,
   UseInterceptors,
@@ -64,9 +65,10 @@ export class CatsController {
   }
 
   @ApiOperation({ summary: '고양이 이미지 업로드' })
-  @UseInterceptors(FileInterceptor('file'))
+  @UseInterceptors(FileInterceptor('image'))
   @Post('upload')
-  uploadCatImg() {
+  uploadCatImg(@UploadedFiles() files: Array<Express.Multer.File>) {
+    console.log(files);
     return 'uploadImg';
   }
 }
