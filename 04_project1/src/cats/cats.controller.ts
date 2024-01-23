@@ -8,6 +8,7 @@ import {
   UseGuards,
   UseInterceptors,
 } from '@nestjs/common';
+import { FilesInterceptor } from '@nestjs/platform-express';
 import { ApiOperation, ApiResponse } from '@nestjs/swagger';
 import { AuthService } from 'src/auth/auth.service';
 import { LoginRequestDto } from 'src/auth/dto/login.request.dto';
@@ -16,10 +17,9 @@ import { CurrentUser } from 'src/common/decorators/user.decorator';
 import { HttpExceptionFilter } from 'src/common/exception/http-exception.filter';
 import { SuccessInterceptor } from 'src/common/interceptors/success.interceptor';
 import { multerOptions } from 'src/common/utils/multer.options';
+import { Cat } from './cats.schema';
 import { CatsService } from './cats.service';
 import { ReadOnlyCatDto } from './dto/cat.dto';
-
-import { FilesInterceptor } from '@nestjs/platform-express';
 import { CatRequestDto } from './dto/cats.request.dto';
 
 @Controller('cats')
@@ -54,7 +54,7 @@ export class CatsController {
   }
 
   @ApiOperation({ summary: '로그인' })
-  @Post('login')
+  @Post('login/')
   logIn(@Body() data: LoginRequestDto) {
     // cats가 아닌 auth service 의 jwtLogIn 메서드를 통해서 토큰을 받고 클라이언트에 전달
     return this.authService.jwtLogIn(data);
@@ -68,9 +68,14 @@ export class CatsController {
 
   @ApiOperation({ summary: '고양이 이미지 업로드' })
   @UseInterceptors(FilesInterceptor('image', 10, multerOptions('cats')))
+  @UseGuards(JwtAuthGuard)
   @Post('upload')
-  uploadCatImg(@UploadedFiles() files: Array<Express.Multer.File>) {
+  uploadCatImg(
+    @UploadedFiles() files: Array<Express.Multer.File>,
+    @CurrentUser() cat: Cat,
+  ) {
     console.log(files);
-    return { image: `http://localhost:8000/media/cats/${files[0].filename}` };
+    //return { image: `http://localhost:8000/media/cats/${files[0].filename}` };
+    return this.catsService.uploadImg(cat, files);
   }
 }

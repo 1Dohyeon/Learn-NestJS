@@ -31,20 +31,19 @@ async function bootstrap() {
   const document: OpenAPIObject = SwaggerModule.createDocument(app, config);
   SwaggerModule.setup('docs', app, document);
 
-  // 데이터 베이스에서는 이미지의 경로가 저장된다. 이 middleware를 서버에 있는 static 파일들을 제공하기 위해서 사용함
-  app.useStaticAssets(path.join(__dirname, './common', 'uploads'), {
-    pefix: './media',
-  });
-
   // CORS
   app.enableCors({
-    origin: 'http://localhost:3000', // 배포할 때는 특정 url로 수정
+    origin: true, // 배포할 때는 특정 url로 수정
     credentials: true,
-    methods: 'GET,HEAD,PUT,PATCH,POST,DELETE,OPTIONS',
   });
 
   // port
   const PORT = process.env.PORT;
   await app.listen(PORT);
+
+  // 데이터 베이스에서는 이미지의 경로가 저장된다. 이 middleware를 서버에 있는 static 파일들을 제공하기 위해서 사용함
+  app.useStaticAssets(path.join(__dirname, './common', 'uploads'), {
+    pefix: './media',
+  });
 }
 bootstrap();
