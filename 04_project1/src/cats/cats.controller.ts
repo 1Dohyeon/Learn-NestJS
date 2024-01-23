@@ -7,6 +7,7 @@ import {
   UseGuards,
   UseInterceptors,
 } from '@nestjs/common';
+import { FileInterceptor } from '@nestjs/platform-express';
 import { ApiOperation, ApiResponse } from '@nestjs/swagger';
 import { AuthService } from 'src/auth/auth.service';
 import { LoginRequestDto } from 'src/auth/dto/login.request.dto';
@@ -63,7 +64,8 @@ export class CatsController {
   }
 
   @ApiOperation({ summary: '고양이 이미지 업로드' })
-  @Post('upload/cats')
+  @UseInterceptors(FileInterceptor('file'))
+  @Post('upload')
   uploadCatImg() {
     return 'uploadImg';
   }
