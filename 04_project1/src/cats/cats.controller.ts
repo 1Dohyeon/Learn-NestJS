@@ -54,7 +54,7 @@ export class CatsController {
   }
 
   @ApiOperation({ summary: '로그인' })
-  @Post('login/')
+  @Post('login')
   logIn(@Body() data: LoginRequestDto) {
     // cats가 아닌 auth service 의 jwtLogIn 메서드를 통해서 토큰을 받고 클라이언트에 전달
     return this.authService.jwtLogIn(data);
