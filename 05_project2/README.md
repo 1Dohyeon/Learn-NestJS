@@ -80,4 +80,5 @@ Nest is [MIT licensed](LICENSE).
 npm i --save hbs
 npm i --save @nestjs/config
 npm i --save @nestjs/mongoose mongoose
+npm i --save @nestjs/websockets @nestjs/platform-socket.io
 ```
