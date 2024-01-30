@@ -78,4 +78,6 @@ Nest is [MIT licensed](LICENSE).
 
 ```
 npm i --save hbs
+npm i --save @nestjs/config
+npm i --save @nestjs/mongoose mongoose
 ```
