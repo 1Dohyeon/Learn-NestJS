@@ -52,7 +52,7 @@ socket.on('new_chat', (data) => {
 });
 
 socket.on('disconnected_user', (username) =>
-  drawNewChat(`${username}: bye...`),
+  drawNewChat(`disconnected: ${username}`),
 );
 
 function helloUser() {
