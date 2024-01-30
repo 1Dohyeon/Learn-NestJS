@@ -81,6 +81,7 @@ export class ChatsGateway
   }
 
   // 연결이 끊겼을 경우
+  @SubscribeMessage('disconnected_user')
   async handleDisconnect(@ConnectedSocket() socket: Socket) {
     const user = await this.socketModel.findOne({ id: socket.id });
     if (user) {
