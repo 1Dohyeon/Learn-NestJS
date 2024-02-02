@@ -71,3 +71,10 @@ Nest is an MIT-licensed open source project. It can grow thanks to the sponsors 
 ## License
 
 Nest is [MIT licensed](LICENSE).
+
+## Setup
+
+```
+npm i --save @nestjs/typeorm typeorm mysql2
+npm i --save @nestjs/config
+```
